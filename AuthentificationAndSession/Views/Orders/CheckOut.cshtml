@@ -1,0 +1,58 @@
+﻿@model AuthentificationAndSession.Models.OrdersModels
+
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var NbTotalItem = Model.lstProducts.Count();
+    var TotalPrice = Model.lstProducts.Sum(x => x.ProductsPrice);
+}
+<div class="panel panel-default">
+    <div class="panel-heading" style="text-align: center !important;">
+        <b>My Cart</b>
+        @using (Html.BeginForm("GetAllProduct", "Products", FormMethod.Get, new { }))
+        {
+            <button id="AddNewItem" type="submit" value="additems">Add some other items</button>
+        }
+    </div>
+    <div class="panel-body" id="MyCart">
+        <div>
+            <table class="table table-hover">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                </tr>
+
+                @foreach (var item in Model.lstProducts)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductsName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProductsPrice)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <div style="text-align: center">The total amout of the cart is : <b>@TotalPrice € (@NbTotalItem item(s))</b></div>
+       
+        <div style="padding-top: 10px; text-align:center">
+            @using (Html.BeginForm("Save", "Orders", FormMethod.Post))
+            {
+                <button id="checkOut">I Confirm my orders</button>
+            }
+            
+        </div>
+    </div>
+</div>

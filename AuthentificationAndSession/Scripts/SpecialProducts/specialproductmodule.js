@@ -1,0 +1,1 @@
+﻿var specialproductmodule = angular.module("specialproductmodule", []);

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<AuthentificationAndSession.Models.OrdersModels>
+
+@{
+    ViewBag.Title = "MyOrders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@foreach (var item in Model)
+{
+
+    <div class="panel panel-default">
+        <div class="panel-heading" style="text-align: center !important;">
+            <b>@item.OrdersDate.ToShortDateString()</b>
+        </div>
+        <div class="panel-body" id="MyCart">
+            <div>
+                <table class="table table-hover">
+                    @{
+                        var Total = item.lstProducts.Sum(x => x.ProductsPrice);
+                        var NbItem = item.lstProducts.Count();
+                    }
+                    @foreach (var item2 in item.lstProducts)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item2.ProductsName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item2.ProductsPrice)
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="panel-heading" style="text-align: center !important;">
+                <div>
+                    <b>Total item : @NbItem - Total Amount : @Total €</b>
+                    <br/>
+                </div>
+                <div>
+                    @using (Html.BeginForm("GenerateFile", "Orders", FormMethod.Post))
+                    {
+                        @Html.Hidden("Id", item.OrdersId)
+                        @Html.AntiForgeryToken()
+                        <button id="@item.OrdersId" value="GenerateFile" onclick="">Get txt file</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

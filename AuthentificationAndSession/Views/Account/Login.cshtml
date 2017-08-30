@@ -1,0 +1,36 @@
+﻿@model AuthentificationAndSession.Models.AccountModels
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "loginForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="login">
+        <fieldset>
+            <legend>Log in Form</legend>
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.UserName)
+                    @Html.TextBoxFor(m => m.UserName, new { autofocus = "autofocus", id = "loginName" })
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password)
+                </li>
+                <li>
+                    @Html.CheckBoxFor(m => m.RememberMe)
+                    @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+                </li>
+                <li>
+                    <input type="submit" value="Login" />
+                </li>
+            </ol>
+            @Html.ValidationSummary()
+        </fieldset>
+    </div>
+}

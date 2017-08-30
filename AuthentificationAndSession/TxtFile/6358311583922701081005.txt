@@ -1,0 +1,13 @@
+---------------------------------------------------------------------------
+OrderId : 1005
+Date : 14/11/2015
+
+Your products : 
+Id : 2 - Name : Smartphone - Price : 588,990
+Id : 2 - Name : Smartphone - Price : 588,990
+Id : 2 - Name : Smartphone - Price : 588,990
+Id : 2 - Name : Smartphone - Price : 588,990
+
+Total product : 4
+Total price : 2355,960
+---------------------------------------------------------------------------

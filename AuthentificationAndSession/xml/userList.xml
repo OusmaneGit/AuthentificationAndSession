@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<ArrayOfAccountModels xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AccountModels Id="1">
+    <UserName>bousmane</UserName>
+    <Password>password</Password>
+    <Role>Admin</Role>
+    <RememberMe>false</RememberMe>
+  </AccountModels>
+  <AccountModels Id="2">
+    <UserName>bousmaneClient</UserName>
+    <Password>password</Password>
+    <Role>Client</Role>
+    <RememberMe>false</RememberMe>
+  </AccountModels>
+  <AccountModels Id="3">
+    <UserName>bousmaneMerchand</UserName>
+    <Password>password</Password>
+    <Role>Merchand</Role>
+    <RememberMe>false</RememberMe>
+  </AccountModels>
+</ArrayOfAccountModels>    

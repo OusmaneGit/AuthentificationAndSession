@@ -1,0 +1,101 @@
+﻿@using AuthentificationAndSession.Models
+@model IEnumerable<AuthentificationAndSession.Models.ProductsModels>
+
+@{
+    ViewBag.Title = "GetAllProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-default">
+<div class="panel-heading" style="text-align: center !important;">My Cart</div>
+<div class="panel-body" id="MyCart">
+    <div style="text-align: center !important">
+        @{
+            Decimal total = 0;
+            Int32 items = 0;
+            if (Session["addedproducts"] != null)
+            {
+                var lstAdded = (List<ProductsModels>)Session["addedproducts"];
+                total = lstAdded.Sum(x => x.ProductsPrice);
+                items = lstAdded.Count();
+            }
+        }
+
+        items : <b> @items</b> Total : <b>@total </b>
+    </div>
+</div>
+
+@using (Html.BeginForm("CheckOut", "Orders", FormMethod.Post, new { }))
+{
+    <div class="panel-footer" style="text-align: center">
+        <button id="checkOut" type="submit">Checkout</button>
+    </div>
+}
+</div>
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductsName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductsPrice)
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductsName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductsPrice)
+            </td>
+            <td>
+                <button class="glyphicon-plus" id="add-@item.ProductsId" onclick="AddToCart(@item.ProductsId)"></button>
+                <button class="glyphicon-minus" id="remove-@item.ProductsId" onclick="RemoveToCart(@item.ProductsId)"></button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script type="text/javascript">
+    function AddToCart(prodId) {
+        var dataToSend = { productId: prodId };
+        $.ajax({
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: "POST",
+            url: '@Url.Action("AddItemToCart","Products")',
+            data: JSON.stringify(dataToSend),
+            success: function (content) {
+                $('#MyCart').html(content);
+            },
+            error: function () {
+                alert("aie aie aie");
+            }
+        });
+    }
+
+    function RemoveToCart(prodId) {
+        var dataToSend = { productId: prodId };
+        $.ajax({
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            type: "POST",
+            url: '@Url.Action("RemoveItemFromCart","Products")',
+            data: JSON.stringify(dataToSend),
+            success: function (content) {
+                $('#MyCart').html(content);
+            },
+            error: function () {
+                alert("aie aie aie");
+            }
+        });
+    }
+</script>
